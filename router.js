@@ -5,6 +5,8 @@ const controller = require('./Controller')
 
 router.use(express.json())
 
+// Properties
+router.route('/properties').get(controller.getAllProperties)
 
 // Questions
 router.route('/questions/getQuestions').get(controller.getQuestions)
