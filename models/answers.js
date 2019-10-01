@@ -1,6 +1,5 @@
-import mongoose, { Schema } from 'mongoose';
-
-var answerSchema = new Schema({
+const mongoose = require("mongoose");
+var answerSchema = new mongoose.Schema({
   id: {
     type: String,
     unique: true,
@@ -13,4 +12,4 @@ var answerSchema = new Schema({
 });
 
 // Export Mongoose model
-export default mongoose.model('Answers', answerSchema);
+module.exports = mongoose.model('Answers', answerSchema)

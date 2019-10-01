@@ -1,13 +1,14 @@
-import mongoose, { Schema } from 'mongoose';
-
-var playerSchema = new Schema({
+const mongoose = require("mongoose");
+var playerSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
   },
   code: String,
+  balance: Number,
+  turn: Boolean
   
 });
 
 // Export Mongoose model
-export default mongoose.model('players', playerSchema);
+module.exports = mongoose.model('players', playerSchema)

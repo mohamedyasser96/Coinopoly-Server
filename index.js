@@ -3,10 +3,17 @@ const express = require('express')
 // Initialize http server
 const app = express();
 
-// Handle / route
-app.get('/Hello', (req, res) =>
-  res.send('Ouffi says, Hello World!')
-)
+const router = require("./router")
+const mongoose  = require("mongoose")
+
+mongoose.connect('mongodb://localhost/oufi');
+
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+app.use('/', router);
+
 
 // Launch the server on port 3000
 const server = app.listen(3000, () => {

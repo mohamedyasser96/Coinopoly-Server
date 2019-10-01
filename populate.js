@@ -1,7 +1,5 @@
-// import mongoose from 'mongoose';
 const mongoose = require("mongoose");
 let questions = require("./models/questions")
-// import questions from './models/questions';
 
 const Questions = [
 	{
