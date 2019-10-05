@@ -11,6 +11,16 @@ const Answers = mongoose.model("Answers")
 
 
 module.exports = {
+  getAllProperties: async(req, res)=>{
+    try{
+      result  = await Propertiess.find()
+      res.header("Access-Control-Allow-Origin", "*")
+    }catch(err){
+      return res.status(500).send({"response": err.message})
+    }
+    return res.status(200).send({'response': result})
+  },
+
   getPlayers: async (req, res) => {
     let result 
     try{
