@@ -11,7 +11,6 @@ const Answers = mongoose.model("Answers")
 
 
 module.exports = {
-<<<<<<< HEAD
   getAllProperties: async(req, res)=>{
     try{
       result  = await Propertiess.find()
@@ -21,10 +20,6 @@ module.exports = {
     }
     return res.status(200).send({'response': result})
   },
-=======
-
-
-
   
   payRent: async (req, res) => {
 
@@ -52,8 +47,7 @@ module.exports = {
     }
     return res.status(204).send({"response":"OK"})
   
-},
->>>>>>> 0478abb... Paying Rent done
+  },
 
   getPlayers: async (req, res) => {
     let result 
