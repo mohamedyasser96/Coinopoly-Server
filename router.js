@@ -7,6 +7,7 @@ router.use(express.json())
 
 // Properties
 router.route('/properties').get(controller.getAllProperties)
+router.route('/properties/buy').post(controller.buyProperty)
 
 //Rent
 router.route('/payRent').post(controller.payRent)
