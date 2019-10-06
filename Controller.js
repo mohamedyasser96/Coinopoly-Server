@@ -11,6 +11,11 @@ const Answers = mongoose.model("Answers")
 
 
 module.exports = {
+
+  getRandomQuestion: async(req,res)=>{
+
+  },
+
   getAllProperties: async(req, res)=>{
     try{
       result  = await Propertiess.find()
@@ -88,6 +93,8 @@ module.exports = {
     }
     return res.status(200).send({'response': result})
   },
+
+  
  
 }
 
