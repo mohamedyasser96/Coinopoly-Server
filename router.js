@@ -5,13 +5,11 @@ const controller = require('./Controller')
 
 router.use(express.json())
 
-<<<<<<< HEAD
 // Properties
 router.route('/properties').get(controller.getAllProperties)
-=======
+
 //Rent
 router.route('/payRent').post(controller.payRent)
->>>>>>> 0478abb... Paying Rent done
 
 // Questions
 router.route('/questions/getQuestions').get(controller.getQuestions)
