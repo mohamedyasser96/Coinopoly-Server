@@ -8,6 +8,9 @@ router.use(express.json())
 // Properties
 router.route('/properties').get(controller.getAllProperties)
 
+//Rent
+router.route('/payRent').post(controller.payRent)
+
 // Questions
 router.route('/questions/getQuestions').get(controller.getQuestions)
 
