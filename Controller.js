@@ -11,6 +11,40 @@ const Answers = mongoose.model("Answers")
 
 
 module.exports = {
+
+  getRandomQuestion: async(req,res)=>{
+    if(!req.query.propertyId)
+      return res.status(400).send("Request is missing a required parameter.")
+
+    // Get Questions for given propertyId
+    let propertyQuestions
+    try{
+      propertyQuestions = await Questions.find({property_id:req.query.propertyId})
+    }catch(err){
+      return res.status(500).send({"response": err.message})
+    }
+
+    // Choose a random Question
+    let question
+    try{
+      question = propertyQuestions[Math.floor(Math.random()*propertyQuestions.length)];
+    }catch(err){
+      return res.status(500).send({"response": err.message})
+    }
+
+    // Fetch chosen Question's answers
+    let answers
+    try{
+      answers = await Answers.find({question_id:question.id})
+    }catch(err){
+      return res.status(500).send({"response": err.message})
+    }
+
+    // Construct and return result
+    return res.status(200).send({"response":{"Question":question, "Answers":answers}})
+    
+  },
+
   getAllProperties: async(req, res)=>{
     try{
       result  = await Propertiess.find()
@@ -116,6 +150,8 @@ module.exports = {
     }
     return res.status(200).send({'response': result})
   },
+
+  
  
 }
 

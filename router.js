@@ -13,6 +13,7 @@ router.route('/payRent').post(controller.payRent)
 
 // Questions
 router.route('/questions/getQuestions').get(controller.getQuestions)
+router.route('/questions/randomQuestion').get(controller.getRandomQuestion)
 
 //Players
 router.route('/players/getAllPlayers').get(controller.getPlayers)
