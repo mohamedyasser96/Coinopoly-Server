@@ -127,11 +127,7 @@ module.exports = {
     }
     return res.status(204).send({"response":"OK"})
   
-<<<<<<< HEAD
-},
-=======
   },
->>>>>>> 68f30212f71d9f8dccb185689491a88b072cd00c
 
   getPlayers: async (req, res) => {
     let result 
