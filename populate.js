@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 let questions = require("./models/questions")
+let players = require("./models/players")
+let properties = require("./models/property")
+let answers = require("./models/answers")
 
 const Questions = [
 	{
@@ -42,6 +45,82 @@ const Questions = [
 	},
 ]
 
+const Answers = [
+	{
+		id: '1',
+		text: '1919',
+		question_id: '1',
+		correct: false
+	},
+	{
+		id: '2',
+		text: '1945',
+		question_id: '1',
+		correct: false
+	},
+	{
+		id: '3',
+		text: '1936',
+		question_id: '1',
+		correct: true
+	},
+	{
+		id: '4',
+		text: '1990',
+		question_id: '1',
+		correct: false
+	}
+]
+
+const Players = [
+	{
+		username:'mohamed',
+		code: '111222',
+		balance: '500',
+		turn: false
+	},
+	{
+		username:'sherifa',
+		code: '111222',
+		balance: '500',
+		turn: false
+	},
+	{
+		username:'youssef',
+		code: '111222',
+		balance: '500',
+		turn: false
+	}
+
+]
+
+const Properties = [
+	{
+		id: '1',
+		name: 'Yasser Mall',
+		Value: '80',
+		rentValue: '10',
+		info: 'Yasser Mall is so cool',
+		owner: null	  
+	},
+	{
+		id: '2',
+		name: 'Oufi Train',
+		Value: '180',
+		rentValue: '20',
+		info: 'Testtttttttt',
+		owner: null	  
+	},
+	{
+		id: '3',
+		name: 'Wallstreet',
+		Value: '120',
+		rentValue: '18',
+		info: 'AAAAAABBBBBBBB',
+		owner: null	  
+	}
+]
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/oufi');
@@ -52,4 +131,22 @@ Questions.map(data => {
   const question = new questions(data);
   // and save it into the database
   question.save();
+});
+Players.map(data => {
+	// Initialize a model with movie data
+	const player = new players(data);
+	// and save it into the database
+	player.save();
+  });
+Properties.map(data => {
+// Initialize a model with movie data
+const property = new properties(data);
+// and save it into the database
+property.save();
+});
+Answers.map(data => {
+	// Initialize a model with movie data
+	const answer = new answers(data);
+	// and save it into the database
+	answer.save();
 });

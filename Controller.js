@@ -128,11 +128,11 @@ module.exports = {
     return res.status(204).send({"response":"OK"})
   
   },
-
+  
   getPlayers: async (req, res) => {
     let result 
     try{
-      result  = await Players.find()
+      result  = await Players.find({code: req.body.gameCode})
 
       res.header("Access-Control-Allow-Origin", "*")
       

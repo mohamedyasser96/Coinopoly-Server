@@ -6,7 +6,7 @@ const controller = require('./Controller')
 router.use(express.json())
 
 // Properties
-router.route('/properties').get(controller.getAllProperties)
+router.route('/properties').post(controller.getAllProperties)
 router.route('/properties/buy').post(controller.buyProperty)
 
 //Rent
@@ -16,13 +16,13 @@ router.route('/payRent').post(controller.payRent)
 router.route('/payRent').post(controller.payRent)
 
 // Questions
-router.route('/questions/getQuestions').get(controller.getQuestions)
-router.route('/questions/randomQuestion').get(controller.getRandomQuestion)
+router.route('/questions/getQuestions').post(controller.getQuestions)
+router.route('/questions/randomQuestion').post(controller.getRandomQuestion)
 
 //Players
-router.route('/players/getAllPlayers').get(controller.getPlayers)
+router.route('/players/getAllPlayers').post(controller.getPlayers)
 router.route('/players/insert').post(controller.insertPlayer)
-router.route('/players/getPlayer').get(controller.getPlayer)
+router.route('/players/getPlayer').post(controller.getPlayer)
 
 
 module.exports = router
