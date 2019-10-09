@@ -109,7 +109,7 @@ module.exports = {
     res.header("Access-Control-Allow-Origin", "*")
 
     try{
-      await Players.findOneAndUpdate({username:req.body.from}, (err, sender)=>{
+      await Players.findOneAndUpdate({username:req.body.from}, async(err, sender)=>{
           if (err)
               return res.status(500).send({"response": err.message}) 
 
