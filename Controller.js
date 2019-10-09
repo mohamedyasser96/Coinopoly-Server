@@ -93,7 +93,7 @@ module.exports = {
 
   getAllProperties: async(req, res)=>{
     try{
-      result  = await Propertiess.find()
+      result  = await Properties.find()
       res.header("Access-Control-Allow-Origin", "*")
     }catch(err){
       return res.status(500).send({"response": err.message})
