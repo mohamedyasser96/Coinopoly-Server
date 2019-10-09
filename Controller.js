@@ -12,6 +12,52 @@ const Answers = mongoose.model("Answers")
 
 module.exports = {
 
+  buyProperty: async(req, res) =>{
+    
+    if(!req.body.id || !req.body.username)
+      return res.status(400).send("Request is missing a required parameter.")
+
+
+    // Get property's price
+    let property
+    try{
+      property = Properties.findOne({id:req.body.id})
+    }catch(err){
+      return res.status(404).send("Property not found.")
+    }
+    let price = property.Value
+
+
+    // Make sure player has enough balance
+    let player
+    try{
+    player = Players.findOne({username:req.body.username})
+    }catch(err){
+      return res.status(404).send("Player not found.")
+    }
+    if(player.balance < price)
+      return res.status(400).send("The Player doesn't have enough balance.")
+
+
+    
+    await Players.findOneAndUpdate({username:req.body.username}, async(err, buyer)=>{
+      if (err)
+        return res.status(500).send({"response": err.message}) 
+
+      // Assign player as property owner
+      await Properties.findOneAndUpdate({id:req.body.id}, (err, propertyBeingBought)=>{
+        if (err)
+          return res.status(500).send({"response": err.message}) 
+        
+          propertyBeingBought.owner = buyer.username 
+      })
+
+      // Deduct amount from player
+      buyer.balance = buyer.balance - price      
+    })
+    
+  },  
+
   getRandomQuestion: async(req,res)=>{
     if(!req.query.propertyId)
       return res.status(400).send("Request is missing a required parameter.")
@@ -47,7 +93,7 @@ module.exports = {
 
   getAllProperties: async(req, res)=>{
     try{
-      result  = await Propertiess.find()
+      result  = await Properties.find()
       res.header("Access-Control-Allow-Origin", "*")
     }catch(err){
       return res.status(500).send({"response": err.message})
@@ -63,7 +109,7 @@ module.exports = {
     res.header("Access-Control-Allow-Origin", "*")
 
     try{
-      await Players.findOneAndUpdate({username:req.body.from}, (err, sender)=>{
+      await Players.findOneAndUpdate({username:req.body.from}, async(err, sender)=>{
           if (err)
               return res.status(500).send({"response": err.message}) 
 
