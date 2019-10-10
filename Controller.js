@@ -21,7 +21,8 @@ module.exports = {
     // Get property's price
     let property
     try{
-      property = Properties.findOne({id:req.body.id})
+      property = await Properties.findOne({id:req.body.id})
+      console.log("Property: ", property)
     }catch(err){
       return res.status(404).send("Property not found.")
     }
@@ -31,30 +32,52 @@ module.exports = {
     // Make sure player has enough balance
     let player
     try{
-    player = Players.findOne({username:req.body.username})
+    player = await Players.findOne({username:req.body.username})
+    console.log("Player: ", player)
     }catch(err){
       return res.status(404).send("Player not found.")
     }
     if(player.balance < price)
       return res.status(400).send("The Player doesn't have enough balance.")
 
+    let bal = player.balance
 
+
+
+    try{
+      await Players.findOneAndUpdate({username:req.body.username},
+      {$set: { balance: bal-price}})
+    }catch(err){
+      console.log("Error1")
+    }
+    try{
+      await Properties.findOneAndUpdate({id:req.body.id},
+      {$set: { owner: req.body.username}})
+    }catch(err){
+      console.log("Error2")
+    }
     
-    await Players.findOneAndUpdate({username:req.body.username}, async(err, buyer)=>{
-      if (err)
-        return res.status(500).send({"response": err.message}) 
 
-      // Assign player as property owner
-      await Properties.findOneAndUpdate({id:req.body.id}, (err, propertyBeingBought)=>{
-        if (err)
-          return res.status(500).send({"response": err.message}) 
-        
-          propertyBeingBought.owner = buyer.username 
-      })
+    // await Players.findOneAndUpdate({username:req.body.username}, async(err, buyer)=>{
+    //   console.log("In playerss")
+    //   if (err)
+    //     return res.status(500).send({"response": err.message}) 
 
-      // Deduct amount from player
-      buyer.balance = buyer.balance - price      
-    })
+    //   // Assign player as property owner
+    //   await Properties.findOneAndUpdate({id:req.body.id}, (err, propertyBeingBought)=>{
+    //     console.log("In propss")
+    //     if (err)
+    //       return res.status(500).send({"response": err.message}) 
+
+    //     propertyBeingBought.owner = buyer.username 
+    //   })
+    //   console.log("Buyer: ", buyer)
+    //   console.log("Property: ", propertyBeingBought)
+
+    //   // Deduct amount from player
+    //   buyer.balance = buyer.balance - price      
+    // })
+    return res.status(200).send({'response': "ALL IS GOOD"})
     
   },  
 
