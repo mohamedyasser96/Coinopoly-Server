@@ -3,11 +3,12 @@ require('./models/answers')
 require('./models/property')
 require('./models/players')
 require('./models/questions')
+require('./models/chance')
 const Players = mongoose.model('players')
 const Properties = mongoose.model('properties')
 const Questions = mongoose.model('Questions')
 const Answers = mongoose.model("Answers")
-
+const Chances = mongoose.model("chance")
 
 
 module.exports = {
@@ -42,7 +43,7 @@ module.exports = {
 
     let bal = player.balance
 
-
+    let prop
 
     try{
       await Players.findOneAndUpdate({username:req.body.username},
@@ -51,7 +52,7 @@ module.exports = {
       console.log("Error1")
     }
     try{
-      await Properties.findOneAndUpdate({id:req.body.id},
+      prop = await Properties.findOneAndUpdate({id:req.body.id},
       {$set: { owner: req.body.username}})
     }catch(err){
       console.log("Error2")
@@ -77,18 +78,18 @@ module.exports = {
     //   // Deduct amount from player
     //   buyer.balance = buyer.balance - price      
     // })
-    return res.status(200).send({'response': "ALL IS GOOD"})
+    return res.status(200).send({'response': prop})
     
   },  
 
   getRandomQuestion: async(req,res)=>{
-    if(!req.query.propertyId)
+    if(!req.body.propertyId)
       return res.status(400).send("Request is missing a required parameter.")
 
     // Get Questions for given propertyId
     let propertyQuestions
     try{
-      propertyQuestions = await Questions.find({property_id:req.query.propertyId})
+      propertyQuestions = await Questions.find({property_id:req.body.propertyId})
     }catch(err){
       return res.status(500).send({"response": err.message})
     }
@@ -191,7 +192,7 @@ module.exports = {
       const player = new Players({
         username: req.body.userName,
         code: req.body.gameCode,
-        balance: 500,
+        balance: 2000,
         turn: false
       })
 
@@ -209,6 +210,7 @@ module.exports = {
   },
   getPlayer: async (req, res) => {
     let result 
+    console.log("Getting player")
     try{
       result  = await Players.findOne({ username: req.body.userName})
 
@@ -216,8 +218,29 @@ module.exports = {
       
     }catch(err){
       res.status(500).send({"response": err.message}) 
+      console.log("a7a", err)
     }
     return res.status(200).send({'response': result})
+  },
+  getChance: async (req, res) => {
+    let cards 
+    try{
+      cards  = await Chances.find()
+
+      res.header("Access-Control-Allow-Origin", "*")
+      
+    }catch(err){
+      res.status(500).send({"response": err.message}) 
+    }
+
+    let ch
+    try{
+      ch = cards[Math.floor(Math.random()*cards.length)];
+    }catch(err){
+      return res.status(500).send({"response": err.message})
+    }
+
+    return res.status(200).send({'response': ch})
   },
 
   

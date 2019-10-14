@@ -9,7 +9,8 @@ var propertySchema = new mongoose.Schema({
   Value: Number,
   rentValue: Number,
   info: String,
-  owner: String
+  owner: String,
+  url: String
   
 });
 

@@ -10,10 +10,12 @@ router.route('/properties').post(controller.getAllProperties)
 router.route('/properties/buy').post(controller.buyProperty)
 
 //Rent
-router.route('/payRent').post(controller.payRent)
+// router.route('/payRent').post(controller.payRent)
 
 //Rent
 router.route('/payRent').post(controller.payRent)
+
+router.route('/getChance').get(controller.getChance)
 
 // Questions
 router.route('/questions/getQuestions').post(controller.getQuestions)

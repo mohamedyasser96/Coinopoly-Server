@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 var playerSchema = new mongoose.Schema({
   username: {
     type: String,
-    unique: true,
+    // unique: true,
   },
   code: String,
   balance: Number,

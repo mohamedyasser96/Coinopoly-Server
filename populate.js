@@ -3,6 +3,7 @@ let questions = require("./models/questions")
 let players = require("./models/players")
 let properties = require("./models/property")
 let answers = require("./models/answers")
+let chances = require("./models/chance")
 
 const Questions = [
 	{
@@ -44,33 +45,36 @@ const Questions = [
 
 	},
 ]
-
 const Answers = [
 	{
 		id: '1',
-		text: '1919',
-		question_id: '1',
-		correct: false
-	},
-	{
-		id: '2',
-		text: '1945',
-		question_id: '1',
-		correct: false
-	},
-	{
-		id: '3',
-		text: '1936',
+		text: '1836',
 		question_id: '1',
 		correct: true
 	},
 	{
-		id: '4',
-		text: '1990',
+		id: '2',
+		text: '1900',
 		question_id: '1',
 		correct: false
+
+	},
+	{
+		id: '3',
+		text: '1850',
+		question_id: '1',
+		correct: false
+
+	},
+	{
+		id: '4',
+		text: '1919',
+		question_id: '1',
+		correct: false
+
 	}
 ]
+
 
 const Players = [
 	{
@@ -94,31 +98,44 @@ const Players = [
 
 ]
 
+const Chances = [
+	{
+		text:'Go back three spaces',
+		action: null,
+		
+	},
+	{
+		text:'Capital Gains; 200 Coins',
+		action: 200,
+		
+	},
+	{
+		text:'You have been hacked; lost 500 coins',
+		action: -500,	
+	}
+
+]
+
 const Properties = [
 	{
 		id: '1',
-		name: 'Yasser Mall',
-		Value: '80',
+		name: 'Banknotes',
+		Value: '60',
 		rentValue: '10',
-		info: 'Yasser Mall is so cool',
-		owner: null	  
+		info: 'Banknotes are so cool',
+		owner: null,
+		url: 'https://i.ibb.co/d4XHyQ2/Banknotes.png'
 	},
 	{
 		id: '2',
-		name: 'Oufi Train',
-		Value: '180',
-		rentValue: '20',
+		name: 'Egyptian Pound',
+		Value: '60',
+		rentValue: '12',
 		info: 'Testtttttttt',
-		owner: null	  
+		owner: null,
+		url: 'https://i.ibb.co/9b4gqXq/EGP.png'
 	},
-	{
-		id: '3',
-		name: 'Wallstreet',
-		Value: '120',
-		rentValue: '18',
-		info: 'AAAAAABBBBBBBB',
-		owner: null	  
-	}
+	
 ]
 
 
@@ -149,4 +166,11 @@ Answers.map(data => {
 	const answer = new answers(data);
 	// and save it into the database
 	answer.save();
+});
+
+Chances.map(data => {
+	// Initialize a model with movie data
+	const ch = new chances(data);
+	// and save it into the database
+	ch.save();
 });
